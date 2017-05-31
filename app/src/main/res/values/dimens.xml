@@ -1,0 +1,11 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="item_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="project_header1">25sp</dimen>
+    <dimen name="project_header2">20sp</dimen>
+    <dimen name="project_text">16sp</dimen>
+    <dimen name="logo_width">150dp</dimen>
+    <dimen name="logo_height">125dp</dimen>
+</resources>

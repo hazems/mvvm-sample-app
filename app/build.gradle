@@ -1,0 +1,52 @@
+project.ext {
+    appcompat = "25.3.1"
+    arch = "1.0.0-alpha1"
+    retrofit = "2.0.2"
+    constraintLayout = "1.0.2"
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.example.test.mvvm_sample_app"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile "com.android.support:appcompat-v7:$project.appcompat"
+    compile "com.android.support:cardview-v7:$project.appcompat"
+    compile "com.android.support:recyclerview-v7:$project.appcompat"
+    compile "android.arch.lifecycle:runtime:$project.arch"
+    compile "android.arch.lifecycle:extensions:$project.arch"
+    compile "com.squareup.retrofit2:retrofit:$project.retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$project.retrofit"
+    annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
+    compile "com.android.support.constraint:constraint-layout:$project.constraintLayout"
+    compile "com.android.support:support-v4:$project.appcompat"
+
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:25.3.1'
+}

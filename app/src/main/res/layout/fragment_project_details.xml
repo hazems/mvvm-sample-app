@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="isLoading" type="boolean" />
+        <variable name="projectViewModel" type="com.example.test.mvvmsampleapp.viewmodel.ProjectViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/loading_project"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/loading_project"
+            android:textAlignment="center"
+            app:visibleGone="@{isLoading}"/>
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/item_horizontal_margin"
+            android:layout_marginEnd="@dimen/item_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="5dp"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
+            app:visibleGone="@{!isLoading}">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/logo_width"
+                android:layout_height="@dimen/logo_height"
+                android:src="@drawable/github" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/project_name"
+                android:textStyle="bold"
+                android:textSize="@dimen/project_header1"
+                android:text="@{projectViewModel.project.name}"
+                android:textAlignment="center"
+                android:paddingBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/project_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/project_description"
+                android:textSize="@dimen/project_header2"
+                android:text="@{projectViewModel.project.description}"/>
+
+
+            <TextView
+                android:id="@+id/languages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/project_language"
+                android:textSize="@dimen/project_text"
+                android:text="@{String.format(@string/languages, projectViewModel.project.language)}"/>
+
+            <TextView
+                android:id="@+id/project_watchers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/project_watchers"
+                android:textSize="@dimen/project_text"
+                android:text="@{String.format(@string/watchers, projectViewModel.project.watchers)}"/>
+
+            <TextView
+                android:id="@+id/project_open_issues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/open_issues"
+                android:textSize="@dimen/project_text"
+                android:text="@{String.format(@string/openIssues, projectViewModel.project.open_issues)}"/>
+
+
+            <TextView
+                android:id="@+id/project_created_at"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Created At"
+                android:textSize="@dimen/project_text"
+                android:text="@{String.format(@string/created_at, projectViewModel.project.created_at)}"/>
+
+            <TextView
+                android:id="@+id/project_updated_at"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Updated At"
+                android:textSize="@dimen/project_text"
+                android:text="@{String.format(@string/updated_at, projectViewModel.project.updated_at)}"/>
+
+            <TextView
+                android:id="@+id/clone_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/open_issues"
+                android:textSize="@dimen/project_text"
+                android:text="@{String.format(@string/clone_url, projectViewModel.project.clone_url)}"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
