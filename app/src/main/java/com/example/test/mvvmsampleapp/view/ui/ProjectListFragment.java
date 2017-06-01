@@ -1,12 +1,10 @@
 package com.example.test.mvvmsampleapp.view.ui;
 
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,11 @@ import com.example.test.mvvmsampleapp.viewmodel.ProjectListViewModel;
 
 import java.util.List;
 
-public class ProjectListFragment extends LifecycleFragment {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+public class ProjectListFragment extends BaseFragment {
     public static final String TAG = "ProjectListFragment";
     private ProjectAdapter projectAdapter;
     private FragmentProjectListBinding binding;
@@ -41,23 +43,31 @@ public class ProjectListFragment extends LifecycleFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final ProjectListViewModel viewModel =
-                ViewModelProviders.of(this).get(ProjectListViewModel.class);
+        final ProjectListViewModel viewModel = new ProjectListViewModel(getActivity().getApplication());
+                //ViewModelProviders.of(this).get(ProjectListViewModel.class);
 
         observeViewModel(viewModel);
     }
 
     private void observeViewModel(ProjectListViewModel viewModel) {
         // Update the list when the data changes
-        viewModel.getProjectListObservable().observe(this, new Observer<List<Project>>() {
-            @Override
-            public void onChanged(@Nullable List<Project> projects) {
-                if (projects != null) {
-                    binding.setIsLoading(false);
-                    projectAdapter.setProjectList(projects);
-                }
-            }
-        });
+        addDisposable(
+                viewModel.getProjectListObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Project>>() {
+                    @Override
+                    public void accept(List<Project> projects) throws Exception {
+                        binding.setIsLoading(false);
+                        projectAdapter.setProjectList(projects);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d("ERROR", "An error happens");
+                    }
+                })
+        );
     }
 
     private final ProjectClickCallback projectClickCallback = new ProjectClickCallback() {

@@ -3,6 +3,7 @@ project.ext {
     arch = "1.0.0-alpha1"
     retrofit = "2.0.2"
     constraintLayout = "1.0.2"
+
 }
 
 apply plugin: 'com.android.application'
@@ -28,6 +29,10 @@ android {
     dataBinding {
         enabled = true
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
@@ -46,6 +51,11 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
     compile "com.android.support.constraint:constraint-layout:$project.constraintLayout"
     compile "com.android.support:support-v4:$project.appcompat"
+
+    compile "io.reactivex.rxjava2:rxjava:2.0.8"
+    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+
 
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.3.1'

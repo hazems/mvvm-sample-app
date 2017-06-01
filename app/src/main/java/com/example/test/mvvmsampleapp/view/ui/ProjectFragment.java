@@ -1,11 +1,9 @@
 package com.example.test.mvvmsampleapp.view.ui;
 
-import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,11 @@ import com.example.test.mvvmsampleapp.databinding.FragmentProjectDetailsBinding;
 import com.example.test.mvvmsampleapp.service.model.Project;
 import com.example.test.mvvmsampleapp.viewmodel.ProjectViewModel;
 
-public class ProjectFragment extends LifecycleFragment {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+public class ProjectFragment extends BaseFragment {
     private static final String KEY_PROJECT_ID = "project_id";
     private FragmentProjectDetailsBinding binding;
 
@@ -33,11 +35,9 @@ public class ProjectFragment extends LifecycleFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ProjectViewModel.Factory factory = new ProjectViewModel.Factory(
-                getActivity().getApplication(), getArguments().getString(KEY_PROJECT_ID));
 
-        final ProjectViewModel viewModel = ViewModelProviders.of(this, factory)
-                .get(ProjectViewModel.class);
+        ProjectViewModel viewModel = new ProjectViewModel(getActivity().getApplication(),
+                getArguments().getString(KEY_PROJECT_ID));
 
         binding.setProjectViewModel(viewModel);
         binding.setIsLoading(true);
@@ -47,15 +47,23 @@ public class ProjectFragment extends LifecycleFragment {
 
     private void observeViewModel(final ProjectViewModel viewModel) {
         // Observe project data
-        viewModel.getObservableProject().observe(this, new Observer<Project>() {
-            @Override
-            public void onChanged(@Nullable Project project) {
-                if (project != null) {
-                    binding.setIsLoading(false);
-                    viewModel.setProject(project);
-                }
-            }
-        });
+        addDisposable(
+                viewModel.getObservableProject()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Project>() {
+                    @Override
+                    public void accept(Project project) throws Exception {
+                        binding.setIsLoading(false);
+                        viewModel.setProject(project);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d("ERROR", "An error happens");
+                    }
+                })
+        );
     }
 
     /** Creates project fragment for specific project ID */
