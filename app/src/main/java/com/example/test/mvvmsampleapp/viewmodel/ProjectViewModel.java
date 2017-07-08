@@ -3,26 +3,46 @@ package com.example.test.mvvmsampleapp.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.test.mvvmsampleapp.service.model.Project;
 import com.example.test.mvvmsampleapp.service.repository.ProjectRepository;
 
+import javax.inject.Inject;
+
 public class ProjectViewModel extends AndroidViewModel {
+    private static final String TAG = ProjectViewModel.class.getName();
+    private static final MutableLiveData ABSENT = new MutableLiveData();
+    {
+        //noinspection unchecked
+        ABSENT.setValue(null);
+    }
+
     private final LiveData<Project> projectObservable;
-    private final String projectID;
+    private final MutableLiveData<String> projectID;
 
     public ObservableField<Project> project = new ObservableField<>();
 
-    public ProjectViewModel(@NonNull Application application,
-                            final String projectID) {
+    @Inject
+    public ProjectViewModel(@NonNull ProjectRepository projectRepository, @NonNull Application application) {
         super(application);
-        this.projectID = projectID;
 
-        projectObservable = ProjectRepository.getInstance().getProjectDetails("Google", projectID);
+        this.projectID = new MutableLiveData<>();
+
+        projectObservable = Transformations.switchMap(projectID, input -> {
+            if (input.isEmpty()) {
+                Log.i(TAG, "ProjectViewModel projectID is absent!!!");
+                return ABSENT;
+            }
+
+            Log.i(TAG,"ProjectViewModel projectID is " + projectID.getValue());
+
+            return projectRepository.getProjectDetails("Google", projectID.getValue());
+        });
     }
 
     public LiveData<Project> getObservableProject() {
@@ -33,25 +53,7 @@ public class ProjectViewModel extends AndroidViewModel {
         this.project.set(project);
     }
 
-    /**
-     * A creator is used to inject the project ID into the ViewModel
-     */
-    public static class Factory extends ViewModelProvider.NewInstanceFactory {
-
-        @NonNull
-        private final Application application;
-
-        private final String projectID;
-
-        public Factory(@NonNull Application application, String projectID) {
-            this.application = application;
-            this.projectID = projectID;
-        }
-
-        @Override
-        public <T extends ViewModel> T create(Class<T> modelClass) {
-            //noinspection unchecked
-            return (T) new ProjectViewModel(application, projectID);
-        }
+    public void setProjectID(String projectID) {
+        this.projectID.setValue(projectID);
     }
 }

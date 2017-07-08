@@ -3,6 +3,7 @@ project.ext {
     arch = "1.0.0-alpha1"
     retrofit = "2.0.2"
     constraintLayout = "1.0.2"
+    dagger_version = "2.11"
 }
 
 apply plugin: 'com.android.application'
@@ -28,6 +29,10 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -46,6 +51,13 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
     compile "com.android.support.constraint:constraint-layout:$project.constraintLayout"
     compile "com.android.support:support-v4:$project.appcompat"
+
+    compile "com.google.dagger:dagger:$project.dagger_version"
+    compile "com.google.dagger:dagger-android:$project.dagger_version"
+    compile "com.google.dagger:dagger-android-support:$project.dagger_version"
+
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.3.1'

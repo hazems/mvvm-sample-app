@@ -3,6 +3,7 @@ package com.example.test.mvvmsampleapp.view.ui;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.test.mvvmsampleapp.R;
 import com.example.test.mvvmsampleapp.databinding.FragmentProjectListBinding;
+import com.example.test.mvvmsampleapp.di.Injectable;
 import com.example.test.mvvmsampleapp.service.model.Project;
 import com.example.test.mvvmsampleapp.view.adapter.ProjectAdapter;
 import com.example.test.mvvmsampleapp.view.callback.ProjectClickCallback;
@@ -20,10 +22,15 @@ import com.example.test.mvvmsampleapp.viewmodel.ProjectListViewModel;
 
 import java.util.List;
 
-public class ProjectListFragment extends LifecycleFragment {
+import javax.inject.Inject;
+
+public class ProjectListFragment extends LifecycleFragment  implements Injectable {
     public static final String TAG = "ProjectListFragment";
     private ProjectAdapter projectAdapter;
     private FragmentProjectListBinding binding;
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     @Nullable
     @Override
@@ -41,8 +48,9 @@ public class ProjectListFragment extends LifecycleFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final ProjectListViewModel viewModel =
-                ViewModelProviders.of(this).get(ProjectListViewModel.class);
+
+        final ProjectListViewModel viewModel = ViewModelProviders.of(this,
+                viewModelFactory).get(ProjectListViewModel.class);
 
         observeViewModel(viewModel);
     }
