@@ -1,12 +1,12 @@
 package com.example.test.mvvmsampleapp.view.ui;
 
-import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,8 @@ import com.example.test.mvvmsampleapp.viewmodel.ProjectViewModel;
 
 import javax.inject.Inject;
 
-public class ProjectFragment extends LifecycleFragment implements Injectable {
+public class ProjectFragment extends Fragment implements Injectable {
+
     private static final String KEY_PROJECT_ID = "project_id";
     private FragmentProjectDetailsBinding binding;
 

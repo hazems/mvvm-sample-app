@@ -44,16 +44,16 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return ProjectAdapter.this.projectList.get(oldItemPosition).id ==
-                            projectList.get(newItemPosition).id;
+                    return ProjectAdapter.this.projectList.get(oldItemPosition).getId() ==
+                            projectList.get(newItemPosition).getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     Project project = projectList.get(newItemPosition);
                     Project old = projectList.get(oldItemPosition);
-                    return project.id == old.id
-                            && Objects.equals(project.git_url, old.git_url);
+                    return project.getId() == old.getId()
+                            && Objects.equals(project.getGit_url(), old.getGit_url());
                 }
             });
             this.projectList = projectList;
