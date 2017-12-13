@@ -1,7 +1,9 @@
 package com.example.test.mvvmsampleapp.di;
 
-import com.example.test.mvvmsampleapp.MVVMApplication;
 import android.app.Application;
+
+import com.example.test.mvvmsampleapp.App;
+
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
@@ -20,5 +22,5 @@ public interface AppComponent {
         @BindsInstance Builder application(Application application);
         AppComponent build();
     }
-    void inject(MVVMApplication mvvmApplication);
+    void inject(App app);
 }

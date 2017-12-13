@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
-import com.example.test.mvvmsampleapp.MVVMApplication;
+import com.example.test.mvvmsampleapp.App;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
@@ -19,11 +19,11 @@ import dagger.android.support.HasSupportFragmentInjector;
 public class AppInjector {
     private AppInjector() {}
 
-    public static void init(MVVMApplication mvvmApplication) {
-        DaggerAppComponent.builder().application(mvvmApplication)
-                .build().inject(mvvmApplication);
+    public static void init(App app) {
+        DaggerAppComponent.builder().application(app)
+                .build().inject(app);
 
-        mvvmApplication
+        app
                 .registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
                     @Override
                     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
