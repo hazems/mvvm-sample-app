@@ -11,6 +11,9 @@ import com.example.test.mvvmsampleapp.service.model.Project
 import com.example.test.mvvmsampleapp.view.callback.ProjectClickCallback
 import com.example.test.mvvmsampleapp.view.viewholders.ProjectViewHolder
 
+/**
+ * Adapter which shows a list of repositories.
+ */
 class ProjectAdapter(private val projectClickCallback: ProjectClickCallback?)
     : RecyclerView.Adapter<ProjectViewHolder>() {
 

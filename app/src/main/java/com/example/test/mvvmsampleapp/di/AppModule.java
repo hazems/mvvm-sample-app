@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(subcomponents = ViewModelSubComponent.class)
 class AppModule {
+
     @Singleton @Provides
     GitHubService provideGithubService() {
         return new Retrofit.Builder()
