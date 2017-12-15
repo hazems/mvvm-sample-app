@@ -15,7 +15,7 @@ interface GitHubService {
     fun getProjectList(@Path("user") user: String): Call<List<Project>>
 
     @GET("repos/{user}/{reponame}")
-    fun getProjectDetails(@Path("user") user: String, @Path("reponame") projectName: String): Call<Project>
+    fun getProjectDetails(@Path("user") user: String, @Path("reponame") projectName: String?): Call<Project>
 
     companion object {
         val HTTPS_API_GITHUB_URL = "https://api.github.com/"

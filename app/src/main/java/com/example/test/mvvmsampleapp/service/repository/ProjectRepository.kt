@@ -33,7 +33,7 @@ constructor(private val gitHubService: GitHubService) {
         return data
     }
 
-    fun getProjectDetails(userID: String, projectName: String): LiveData<Project> {
+    fun getProjectDetails(userID: String, projectName: String?): LiveData<Project> {
         val data = MutableLiveData<Project>()
 
         gitHubService.getProjectDetails(userID, projectName)
