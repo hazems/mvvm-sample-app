@@ -19,7 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     dataBinding {
         enabled = true
     }
@@ -41,7 +40,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    kapt "com.android.databinding:compiler:3.1.0-alpha05"
+    kapt "com.android.databinding:compiler:3.1.0-alpha08"
 
     // google support libraries
     compile "com.android.support:appcompat-v7:$project.appcompat"
