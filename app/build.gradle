@@ -55,7 +55,7 @@ dependencies {
     compile "android.arch.lifecycle:extensions:$project.arch"
     kapt "android.arch.lifecycle:compiler:$project.arch"
 
-    // netwrok libraries
+    // network libraries
     compile "com.squareup.retrofit2:retrofit:$project.retrofit"
     compile "com.squareup.retrofit2:converter-gson:$project.retrofit"
 
@@ -71,4 +71,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
+        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
+
 }
