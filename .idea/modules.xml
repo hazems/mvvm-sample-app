@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MVVMSampleApp.iml" filepath="$PROJECT_DIR$/MVVMSampleApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mvvm-sample-app.iml" filepath="$PROJECT_DIR$/mvvm-sample-app.iml" />
     </modules>
   </component>
 </project>
