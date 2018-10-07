@@ -1,18 +1,19 @@
 package com.example.test.mvvmsampleapp.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Transformations;
-import android.databinding.ObservableField;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.test.mvvmsampleapp.service.model.Project;
 import com.example.test.mvvmsampleapp.service.repository.ProjectRepository;
 
 import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 public class ProjectViewModel extends AndroidViewModel {
     private static final String TAG = ProjectViewModel.class.getName();

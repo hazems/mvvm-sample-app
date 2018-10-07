@@ -40,7 +40,7 @@
                 android:layout_marginBottom="20dp"
                 android:textAlignment="center"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/project_list"
                 android:contentDescription="@string/project_list"
                 android:layout_width="match_parent"

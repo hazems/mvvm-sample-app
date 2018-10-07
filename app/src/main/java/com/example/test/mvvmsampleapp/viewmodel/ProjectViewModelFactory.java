@@ -1,8 +1,8 @@
 package com.example.test.mvvmsampleapp.viewmodel;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.v4.util.ArrayMap;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.collection.ArrayMap;
 
 import com.example.test.mvvmsampleapp.di.ViewModelSubComponent;
 

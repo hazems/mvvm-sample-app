@@ -1,9 +1,10 @@
 project.ext {
-    appcompat = "25.3.1"
-    arch = "1.1.0"
+    support = "1.0.0"
+    constraintlayout = "2.0.0-alpha2"
+    arch = "2.0.0"
     retrofit = "2.0.2"
     constraintLayout = "1.0.2"
-    dagger_version = "2.11"
+    dagger_version = "2.15"
 }
 
 apply plugin: 'com.android.application'
@@ -11,14 +12,15 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.2'
+
     defaultConfig {
         applicationId "com.example.test.mvvm_sample_app"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,6 +31,7 @@ android {
     dataBinding {
         enabled = true
     }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
@@ -38,37 +41,23 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:design:25.3.1"
+    implementation "com.google.android.material:material:$project.support"
+    implementation "androidx.appcompat:appcompat:$project.support"
+    implementation "androidx.cardview:cardview:$project.support"
+    implementation "androidx.recyclerview:recyclerview:$project.support"
+    implementation "androidx.constraintlayout:constraintlayout:$project.constraintlayout"
+    implementation "androidx.legacy:legacy-support-v4:$project.support"
 
-    implementation "com.android.support:appcompat-v7:$project.appcompat"
-    implementation "com.android.support:cardview-v7:$project.appcompat"
-    implementation "com.android.support:recyclerview-v7:$project.appcompat"
+    // Arch
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$project.arch"
+    implementation "androidx.lifecycle:lifecycle-runtime:$project.arch"
+    implementation "androidx.lifecycle:lifecycle-extensions:$project.arch"
 
-    /*
-    annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
-
-    compile ("android.arch.lifecycle:livedata:$project.arch") {
-        force = true;
-    }
-    compile ("android.arch.lifecycle:viewmodel:$project.arch") {
-        force = true;
-    }
-
-    compile "android.arch.lifecycle:runtime:$project.arch"
-    compile "android.arch.lifecycle:extensions:$project.arch"
-    */
-
-    annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
-    implementation "android.arch.lifecycle:runtime:$project.arch"
-    implementation "android.arch.lifecycle:extensions:$project.arch"
-
-
+    // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$project.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$project.retrofit"
 
-    implementation "com.android.support.constraint:constraint-layout:$project.constraintLayout"
-    implementation "com.android.support:support-v4:$project.appcompat"
-
+    // Dagger
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger:$project.dagger_version"

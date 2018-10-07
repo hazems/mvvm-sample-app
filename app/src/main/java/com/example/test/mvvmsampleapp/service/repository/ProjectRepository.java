@@ -1,7 +1,7 @@
 package com.example.test.mvvmsampleapp.service.repository;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.test.mvvmsampleapp.service.model.Project;
 

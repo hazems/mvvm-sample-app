@@ -1,12 +1,11 @@
 package com.example.test.mvvmsampleapp.di;
 
-import android.arch.lifecycle.ViewModelProvider;
-
 import com.example.test.mvvmsampleapp.service.repository.GitHubService;
 import com.example.test.mvvmsampleapp.viewmodel.ProjectViewModelFactory;
 
 import javax.inject.Singleton;
 
+import androidx.lifecycle.ViewModelProvider;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
