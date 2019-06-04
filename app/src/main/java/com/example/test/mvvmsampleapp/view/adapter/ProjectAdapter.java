@@ -51,7 +51,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     Project project = projectList.get(newItemPosition);
-                    Project old = projectList.get(oldItemPosition);
+                    Project old = ProjectAdapter.this.projectList.get(oldItemPosition);
                     return project.id == old.id
                             && Objects.equals(project.git_url, old.git_url);
                 }
