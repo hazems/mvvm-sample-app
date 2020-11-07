@@ -30,9 +30,7 @@ public class ProjectRepository {
     public synchronized static ProjectRepository getInstance() {
         //TODO No need to implement this singleton in Part #2 since Dagger will handle it ...
         if (projectRepository == null) {
-            if (projectRepository == null) {
-                projectRepository = new ProjectRepository();
-            }
+            projectRepository = new ProjectRepository();
         }
         return projectRepository;
     }
